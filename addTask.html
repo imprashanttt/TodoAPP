@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Add Todo - Todo App{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-xl font-semibold text-center mb-2 text-gray-700">👋 Welcome, {{ username }}</h1>
+        <h2 class="text-2xl font-bold text-center text-blue-600 mb-4">➕ Add a New Task</h2>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="text-center text-{{ category }}-500">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Todo Form -->
+        <form method="post" action="{{ url_for('add_todo', user_id=user_id) }}" class="space-y-4">
+            <div>
+                <label class="block text-gray-700 font-medium">📝 Task</label>
+                <input type="text" name="task" placeholder="Enter your task..." 
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+            </div>
+            <div>
+                <label class="block text-gray-700 font-medium">📝 Task</label>
+                <select name='option' class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                    <option value="Daily" selected>Daily</option>
+                    <option value="Weekly" selected>Weekly</option>
+                    <option value="Monthly" selected>Monthly</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-medium">📅 Target Date</label>
+                <input type="date" name="target_date" 
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+            </div>
+
+            <button type="submit" 
+                class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all">
+                ➕ Add Task
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

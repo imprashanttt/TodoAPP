@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}View Todos - Todo App{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-300">
+    <div class="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8 transform transition-all hover:scale-105">
+        <h2 class="text-3xl font-bold text-center text-blue-700 mb-6">📝 Your Todos</h2>
+        
+        {% if data %}
+            <ul class="space-y-4">
+                {% for todo in data %}
+                    <li class="flex justify-between items-center p-4 bg-gray-100 rounded-lg shadow-md hover:bg-gray-200 transition-all">
+                        <span class="text-gray-700 font-medium">{{ todo.text }}</span>
+                        <a href="{{ url_for('delete_todo', id=todo.id) }}" 
+                           class="text-red-500 font-semibold hover:text-red-700 transition-all">
+                            ❌ Delete
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-center text-gray-600">No tasks yet. Add some tasks to stay productive! 🚀</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Todo App{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <!-- Navigation Bar -->
+    <nav class="w-full bg-white shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="text-2xl font-bold text-gray-800">Todo App</div>
+        <ul class="flex space-x-6">
+            <li><a href="{{ url_for('index') }}" class="text-gray-600 hover:text-gray-900">🏠 Home</a></li>
+            {% if user_logged_in %}
+                <li><a href="{{ url_for('add', user_id=user_id) }}" class="text-gray-600 hover:text-gray-900">➕ Add Todo</a></li>
+                <li><a href="{{ url_for('view', user_id=user_id) }}" class="text-gray-600 hover:text-gray-900">📋 View Todos</a></li>
+            {% endif %}
+        </ul>
+        <div class="flex items-center space-x-4">
+            {% if user_logged_in %}
+                <span class="text-gray-700 font-medium">{{ username }}</span>
+                <a href="{{ url_for('logout') }}" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">🚪 Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">🔑 Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Main Content Block -->
+    <main class="flex-grow container mx-auto p-6">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-white text-center py-4 shadow-md mt-10">
+        <p class="text-gray-600">&copy; 2025 Todo App. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
